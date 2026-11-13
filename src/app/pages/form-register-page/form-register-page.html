@@ -1,0 +1,246 @@
+<form [formGroup]="registerForm" class="row g-3 m-4" novalidate>
+
+    <h2 class="col-12">Datos personales</h2>
+
+    <div class="col-md-6">
+        <label for="first-name" class="form-label">Nombre <span class="text-danger">*</span></label>
+        <input id="first-name" type="text" formControlName="nombre" class="form-control"
+            [class.is-invalid]="isInvalidField('nombre')" autocomplete="given-name" required />
+        @if (isInvalidField('nombre')) {
+        @if (registerForm.controls.nombre.hasError('required')) {
+        <div class="invalid-feedback">El nombre es obligatorio</div>
+        }
+        @if (registerForm.controls.nombre.hasError('minlength')) {
+        <div class="invalid-feedback">Mínimo 2 caracteres</div>
+        }
+        @if (registerForm.controls.nombre.hasError('maxlength')) {
+        <div class="invalid-feedback">Máximo 30 caracteres</div>
+        }
+        @if (registerForm.controls.nombre.hasError('pattern')) {
+        <div class="invalid-feedback">Solo se permiten letras</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="last-name" class="form-label">Apellidos <span class="text-danger">*</span></label>
+        <input id="last-name" type="text" formControlName="apellidos" class="form-control"
+            [class.is-invalid]="isInvalidField('apellidos')" autocomplete="family-name" required />
+        @if (isInvalidField('apellidos')) {
+        @if (registerForm.controls.apellidos.hasError('required')) {
+        <div class="invalid-feedback">Los apellidos son obligatorios</div>
+        }
+        @if (registerForm.controls.apellidos.hasError('minlength')) {
+        <div class="invalid-feedback">Mínimo 2 caracteres</div>
+        }
+        @if (registerForm.controls.apellidos.hasError('maxlength')) {
+        <div class="invalid-feedback">Máximo 50 caracteres</div>
+        }
+        @if (registerForm.controls.apellidos.hasError('pattern')) {
+        <div class="invalid-feedback">Solo se permiten letras</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="telefono" class="form-label">Teléfono de contacto <span class="text-danger">*</span></label>
+        <input id="telefono" type="tel" formControlName="telefono" class="form-control"
+            [class.is-invalid]="isInvalidField('telefono')" autocomplete="tel" required />
+        @if (isInvalidField('telefono')) {
+        @if (registerForm.controls.telefono.hasError('required')) {
+        <div class="invalid-feedback">El teléfono es obligatorio</div>
+        }
+        @if (registerForm.controls.telefono.hasError('pattern')) {
+        <div class="invalid-feedback">Introduce un teléfono de españa</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+        <input id="email" type="email" formControlName="email" class="form-control"
+            [class.is-invalid]="isInvalidField('email')" autocomplete="email" required />
+        @if (isInvalidField('email')) {
+        @if (registerForm.controls.email.hasError('required')) {
+        <div class="invalid-feedback">El email es obligatorio</div>
+        }
+        @if (registerForm.controls.email.hasError('email')) {
+        <div class="invalid-feedback">Formato de email no válido</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="password" class="form-label">Contraseña <span class="text-danger">*</span></label>
+        <input id="password" type="password" formControlName="password" class="form-control"
+            [class.is-invalid]="isInvalidField('password')" autocomplete="new-password" required />
+        @if (isInvalidField('password')) {
+        @if (registerForm.controls.password.hasError('required')) {
+        <div class="invalid-feedback">La contraseña es obligatoria</div>
+        }
+        @if (registerForm.controls.password.hasError('minlength')) {
+        <div class="invalid-feedback">Mínimo 10 caracteres</div>
+        }
+        @if (registerForm.controls.password.hasError('maxlength')) {
+        <div class="invalid-feedback">Máximo 24 caracteres</div>
+        }
+        @if (registerForm.controls.password.hasError('pattern')) {
+        @if (!registerForm.controls.password.value?.match('[A-Z]')) {
+        <div class="invalid-feedback">Debe incluir al menos una mayúscula</div>
+        }
+        @if (!registerForm.controls.password.value?.match('[a-z]')) {
+        <div class="invalid-feedback">Debe incluir al menos una minúscula</div>
+        }
+        @if (!registerForm.controls.password.value?.match('[0-9]')) {
+        <div class="invalid-feedback">Debe incluir al menos un número</div>
+        }
+        @if (registerForm.controls.password.value?.match('\\s')) {
+        <div class="invalid-feedback">No puede contener espacios</div>
+        }
+        }
+        }
+    </div>
+
+    <h2 class="col-12 mt-4">Datos de la mascota</h2>
+
+    <div class="col-md-6">
+        <label for="nombreMascota" class="form-label">Nombre de la mascota <span class="text-danger">*</span></label>
+        <input id="nombreMascota" type="text" formControlName="nombreMascota" class="form-control"
+            [class.is-invalid]="isInvalidField('nombreMascota')" required />
+        @if (isInvalidField('nombreMascota')) {
+        @if (registerForm.controls.nombreMascota.hasError('required')) {
+        <div class="invalid-feedback">El nombre de la mascota es obligatorio</div>
+        }
+        @if (registerForm.controls.nombreMascota.hasError('minlength') ||
+        registerForm.controls.nombreMascota.hasError('maxlength')) {
+        <div class="invalid-feedback">Entre 2 y 20 caracteres</div>
+        }
+        @if (registerForm.controls.nombreMascota.hasError('pattern')) {
+        <div class="invalid-feedback">Solo letras, espacios y guiones</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="especie" class="form-label">Especie <span class="text-danger">*</span></label>
+        <select id="especie" formControlName="especie" class="form-select"
+            [class.is-invalid]="isInvalidField('especie')" required>
+            <option value="">Selecciona una especie</option>
+            <option value="Perro">Perro</option>
+            <option value="Gato">Gato</option>
+            <option value="Ave">Ave</option>
+            <option value="Otro">Otro</option>
+        </select>
+        @if (isInvalidField('especie') && registerForm.controls.especie.hasError('required')) {
+        <div class="invalid-feedback">Selecciona una especie</div>
+        }
+    </div>
+
+    <fieldset class="col-12">
+        <legend class="col-form-label pt-0">Sexo <span class="text-danger">*</span></legend>
+        <div class="form-check form-check-inline">
+            <input id="sexoMacho" type="radio" formControlName="sexo" value="Macho" class="form-check-input"
+                [class.is-invalid]="isInvalidField('sexo')" required />
+            <label for="sexoMacho" class="form-check-label">Macho</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input id="sexoHembra" type="radio" formControlName="sexo" value="Hembra" class="form-check-input"
+                [class.is-invalid]="isInvalidField('sexo')" required />
+            <label for="sexoHembra" class="form-check-label">Hembra</label>
+        </div>
+        @if (isInvalidField('sexo') && registerForm.controls.sexo.hasError('required')) {
+        <div class="text-danger small">Indica el sexo de la mascota</div>
+        }
+    </fieldset>
+
+    <div class="col-md-6">
+        <label for="raza" class="form-label">Raza</label>
+        <input id="raza" type="text" formControlName="raza" class="form-control"
+            [class.is-invalid]="isInvalidField('raza')" />
+        @if (isInvalidField('raza') && registerForm.controls.raza.hasError('maxlength')) {
+        <div class="invalid-feedback">Máximo 40 caracteres</div>
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="edadMascota" class="form-label">Edad en años <span class="text-danger">*</span></label>
+        <input id="edadMascota" type="number" min="0" max="30" step="1" formControlName="edadMascota"
+            class="form-control" [class.is-invalid]="isInvalidField('edadMascota')" required />
+        @if (isInvalidField('edadMascota')) {
+        @if (registerForm.controls.edadMascota.hasError('required')) {
+        <div class="invalid-feedback">La edad es obligatoria</div>
+        }
+        @if (registerForm.controls.edadMascota.hasError('min') || registerForm.controls.edadMascota.hasError('max')) {
+        <div class="invalid-feedback">La edad debe estar entre 0 y 30 años</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="peso" class="form-label">Peso en kg <span class="text-danger">*</span></label>
+        <input id="peso" type="number" min="0.1" max="90" step="any" formControlName="peso" class="form-control"
+            [class.is-invalid]="isInvalidField('peso')" required />
+        @if (isInvalidField('peso')) {
+        @if (registerForm.controls.peso.hasError('required')) {
+        <div class="invalid-feedback">El peso es obligatorio</div>
+        }
+        @if (registerForm.controls.peso.hasError('min') || registerForm.controls.peso.hasError('max')) {
+        <div class="invalid-feedback">El peso debe estar entre 0,1 y 90 kg</div>
+        }
+        }
+    </div>
+
+    <div class="col-md-6">
+        <label for="numeroMicrochip" class="form-label">Número de microchip <span class="text-danger">*</span></label>
+        <input id="numeroMicrochip" type="text" inputmode="numeric" formControlName="numeroMicrochip"
+            class="form-control" [class.is-invalid]="isInvalidField('numeroMicrochip')" required />
+        @if (isInvalidField('numeroMicrochip')) {
+        @if (registerForm.controls.numeroMicrochip.hasError('required')) {
+        <div class="invalid-feedback">El microchip es obligatorio</div>
+        }
+        @if (registerForm.controls.numeroMicrochip.hasError('pattern')) {
+        <div class="invalid-feedback">El microchip debe tener exactamente 15 dígitos numéricos</div>
+        }
+        }
+    </div>
+
+    <div class="col-12">
+        <label for="motivoPrimeraVisita" class="form-label">Motivo de la primera visita <span
+                class="text-danger">*</span></label>
+        <textarea id="motivoPrimeraVisita" rows="4" formControlName="motivoPrimeraVisita" class="form-control"
+            [class.is-invalid]="isInvalidField('motivoPrimeraVisita')" required></textarea>
+        @if (isInvalidField('motivoPrimeraVisita')) {
+        @if (registerForm.controls.motivoPrimeraVisita.hasError('required')) {
+        <div class="invalid-feedback">Describe el motivo de la visita</div>
+        }
+        @if (registerForm.controls.motivoPrimeraVisita.hasError('minlength') ||
+        registerForm.controls.motivoPrimeraVisita.hasError('maxlength')) {
+        <div class="invalid-feedback">Entre 10 y 300 caracteres</div>
+        }
+        }
+    </div>
+
+    <div class="col-12">
+        <div class="form-check">
+            <input id="politicaPrivacidad" type="checkbox" formControlName="politicaPrivacidad" class="form-check-input"
+                [class.is-invalid]="isInvalidField('politicaPrivacidad')" required />
+            <label for="politicaPrivacidad" class="form-check-label">Acepto la política de privacidad <span
+                    class="text-danger">*</span></label>
+            @if (isInvalidField('politicaPrivacidad') && registerForm.controls.politicaPrivacidad.hasError('required'))
+            {
+            <div class="invalid-feedback">Debes aceptar la política de privacidad</div>
+            }
+        </div>
+        <div class="form-check mt-2">
+            <input id="recordatorioVacunas" type="checkbox" formControlName="recordatorioVacunas"
+                class="form-check-input" />
+            <label for="recordatorioVacunas" class="form-check-label">Quiero recibir recordatorios de vacunas por
+                email</label>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Crear cuenta</button>
+        <span class="ms-2 text-body-secondary">Los campos marcados con * son obligatorios.</span>
+    </div>
+</form>
